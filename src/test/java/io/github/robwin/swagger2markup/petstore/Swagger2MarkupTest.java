@@ -74,6 +74,10 @@ public class Swagger2MarkupTest {
     @Test
     public void createSpringfoxSwaggerJson() throws Exception {
         //String designFirstSwaggerLocation = Swagger2MarkupTest.class.getResource("/swagger.yaml").getPath();
+        
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:8080/envms/v2/api-docs", String.class);
+        String swaggerJson = response.getBody();
 
         String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
         MvcResult mvcResult = this.mockMvc.perform(get("/v2/api-docs")
