@@ -35,4 +35,4 @@ The results are generated into `target/asciidoc/html` and `target/asciidoc/pdf`.
 
 == Screenshot
 
-image:images/Demo.PNG[]
+image:images/demo.PNG[]
