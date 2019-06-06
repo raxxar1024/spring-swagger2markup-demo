@@ -8,50 +8,22 @@ image:https://travis-ci.org/Swagger2Markup/spring-swagger2markup-demo.svg?branch
 == Overview
 
 This project is a https://github.com/RobWin/swagger2markup[Swagger2Markup] (AsciiDoc and GitHub Flavored Markdown) converter demo using https://github.com/spring-projects/spring-boot[Spring Boot], https://github.com/springfox/springfox[springfox] and https://github.com/spring-projects/spring-restdocs[spring-restdocs].
-The demo shows how to generate static docs (HTML5 and PDF) with the https://github.com/RobWin/swagger2markup-gradle-plugin[swagger2markup-gradle-plugin] and serve them in a Spring Boot app under http://localhost:9080/docs/index.html and http://localhost:9080/docs/index.pdf.
+The demo shows how to generate static docs (HTML5 and PDF) with the https://github.com/RobWin/swagger2markup-gradle-plugin[swagger2markup-gradle-plugin] .
 
-See https://github.com/RobWin/swagger2markup[Swagger2Markup] and https://github.com/RobWin/swagger2markup-gradle-plugin[swagger2markup-gradle-plugin] for more details and usage guide.
+See https://github.com/RobWin/swagger2markup[Swagger2Markup] and https://github.com/Swagger2Markup/spring-swagger2markup-demo[spring-swagger2markup-demo] for more details and usage guide.
 
 == Usage guide
-
-=== Gradle
-
-If you want to start the Spring Boot application, please run:
-
-[source,groovy]
-----
-gradlew clean build
-----
-
-[subs="attributes"]
-----
-java -jar build/libs/spring-swagger2markup-demo-{version}.jar
-----
-
-If you only want to generate the HTML and PDF documentation, please run:
-
-[source,groovy]
-----
-gradlew clean asciidoctor
-----
-
-The results are generated into `build/asciidoc/html5` and `build/asciidoc/pdf`.
-
 === Maven
 
-If you want to start the Spring Boot application, please run:
 
-[source,groovy]
-----
-mvn clean package
-----
+If you only want to generate the HTML and PDF documentation, please change:
 
 [subs="attributes"]
 ----
-java -jar target/spring-swagger2markup-demo-{version}.jar
+private static final String SWAGGER_URL = "http://localhost:8085/v2/api-docs";
 ----
 
-If you only want to generate the HTML and PDF documentation, please run:
+and run:
 
 [source,groovy]
 ----

@@ -32,11 +32,13 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedWriter;
 import java.nio.charset.StandardCharsets;
@@ -57,7 +59,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class Swagger2MarkupTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Swagger2MarkupTest.class);
+    private static final String SWAGGER_URL = "http://localhost:8085/v2/api-docs";
 
 
     @Autowired
@@ -74,19 +76,18 @@ public class Swagger2MarkupTest {
     @Test
     public void createSpringfoxSwaggerJson() throws Exception {
         //String designFirstSwaggerLocation = Swagger2MarkupTest.class.getResource("/swagger.yaml").getPath();
-        
+        //获取另一台服务的swagger的接口内容
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:8080/envms/v2/api-docs", String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(SWAGGER_URL, String.class);
         String swaggerJson = response.getBody();
 
         String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
-        MvcResult mvcResult = this.mockMvc.perform(get("/v2/api-docs")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        String swaggerJson = response.getContentAsString();
+        //MvcResult mvcResult = this.mockMvc.perform(get("/v2/api-docs")
+        //        .accept(MediaType.APPLICATION_JSON))
+        //        .andExpect(status().isOk())
+        //        .andReturn();
+        //MockHttpServletResponse response = mvcResult.getResponse();
+        //String swaggerJson = response.getContentAsString();
         Files.createDirectories(Paths.get(outputDir));
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(outputDir, "swagger.json"), StandardCharsets.UTF_8)){
             writer.write(swaggerJson);
