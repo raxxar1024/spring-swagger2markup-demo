@@ -33,11 +33,6 @@ mvn clean test
 The results are generated into `target/asciidoc/html` and `target/asciidoc/pdf`.
 
 
-== Demo
-
-[subs="attributes"]
-See live demo on GitHub Pages: http://swagger2markup.github.io/spring-swagger2markup-demo/{version}
-
 == Screenshot
 
 image:images/Demo.PNG[]
