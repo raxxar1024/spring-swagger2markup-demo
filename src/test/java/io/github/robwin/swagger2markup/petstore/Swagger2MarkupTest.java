@@ -59,7 +59,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class Swagger2MarkupTest {
 
-    private static final String SWAGGER_URL = "http://localhost:8085/v2/api-docs";
+    private static final String SWAGGER_URL = "http://localhost:8085/v2/api-docs?group=1.restful_web";
 
 
     @Autowired
