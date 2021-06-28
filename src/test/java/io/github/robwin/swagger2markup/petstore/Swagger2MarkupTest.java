@@ -18,11 +18,14 @@
  */
 package io.github.robwin.swagger2markup.petstore;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.robwin.swagger2markup.SwaggerConfig;
 import io.github.robwin.swagger2markup.petstore.model.Category;
 import io.github.robwin.swagger2markup.petstore.model.Pet;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -52,6 +55,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Slf4j
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureRestDocs(outputDir = "build/asciidoc/snippets")
@@ -59,7 +63,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class Swagger2MarkupTest {
 
-    private static final String SWAGGER_URL = "http://localhost:8085/v2/api-docs?group=1.restful_web";
+//    private static final String SWAGGER_URL = "http://localhost:8085/v2/api-docs?group=1.restful_web";
+    private static final String SWAGGER_URL = "http://114.116.241.44:9999/iotdm/v2/api-docs";
 
 
     @Autowired
@@ -75,19 +80,10 @@ public class Swagger2MarkupTest {
 
     @Test
     public void createSpringfoxSwaggerJson() throws Exception {
-        //String designFirstSwaggerLocation = Swagger2MarkupTest.class.getResource("/swagger.yaml").getPath();
-        //获取另一台服务的swagger的接口内容
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(SWAGGER_URL, String.class);
-        String swaggerJson = response.getBody();
+        HttpResponse res = HttpRequest.get(SWAGGER_URL).execute();
+        String swaggerJson = res.body();
 
         String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
-        //MvcResult mvcResult = this.mockMvc.perform(get("/v2/api-docs")
-        //        .accept(MediaType.APPLICATION_JSON))
-        //        .andExpect(status().isOk())
-        //        .andReturn();
-        //MockHttpServletResponse response = mvcResult.getResponse();
-        //String swaggerJson = response.getContentAsString();
         Files.createDirectories(Paths.get(outputDir));
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(outputDir, "swagger.json"), StandardCharsets.UTF_8)){
             writer.write(swaggerJson);

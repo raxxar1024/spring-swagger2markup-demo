@@ -139,6 +139,16 @@
             <version>${swagger2markup.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -222,7 +232,7 @@
                     <dependency>
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctorj-pdf</artifactId>
-                        <version>1.5.0-alpha.16</version>
+                        <version>1.5.0-alpha-jt.16</version>
                     </dependency>
                     <dependency>
                         <groupId>org.jruby</groupId>
@@ -235,6 +245,7 @@
                     <sourceDirectory>${asciidoctor.input.directory}</sourceDirectory>
                     <sourceDocumentName>index.adoc</sourceDocumentName>
                     <attributes>
+                        <pdf-style>cn</pdf-style>
                         <doctype>book</doctype>
                         <toc>left</toc>
                         <toclevels>3</toclevels>
